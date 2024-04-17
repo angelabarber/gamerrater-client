@@ -21,3 +21,14 @@ export const getGames = () => {
     },
   }).then((res) => res.json())
 }
+
+export const getGameByGameId = (id) => {
+  return fetch(`http://localhost:8000/games/${id}`, {
+    headers: {
+      Authorization: `Token ${
+        JSON.parse(localStorage.getItem("rater_token")).token
+      }`,
+      "Content-Type": "application/json",
+    },
+  }).then((res) => res.json())
+}

@@ -5,6 +5,7 @@ import App from "../App.jsx"
 import { Register } from "./auth/Register.jsx"
 import { GameForm } from "./games/GameForm.jsx"
 import { GameList } from "./games/GameList.jsx"
+import { GameDetails } from "./games/GameDetails.jsx"
 
 export const ApplicationViews = () => {
   return (
@@ -16,6 +17,7 @@ export const ApplicationViews = () => {
           <Route path="/" element={<App />} />
           <Route path="/games" element={<GameList />} />
           <Route path="/games/new" element={<GameForm />} />
+          <Route path="/games/:id" element={<GameDetails />} />
         </Route>
       </Routes>
     </BrowserRouter>
