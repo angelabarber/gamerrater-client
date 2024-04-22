@@ -1,5 +1,6 @@
 import { useEffect, useState, React } from "react"
 import { createGame } from "../services/gameServices.jsx"
+import { CategoryCheckbox } from "../categories/CategoryCheckbox.jsx"
 
 export const GameForm = () => {
   //   const [categories, setCategories] = useState([])
@@ -12,6 +13,7 @@ export const GameForm = () => {
     estimatedTimeToPlay: "",
     ageRecommendation: "",
     imageUrl: "",
+    categories: [],
   })
 
   useEffect(() => {}, [])
@@ -98,6 +100,7 @@ export const GameForm = () => {
           onChange={handleChange}
         />
       </div>
+      <CategoryCheckbox formData={formData} setFormData={setFormData} />
       <div>
         <label htmlFor="imageUrl">Image URL:</label>
         <input
