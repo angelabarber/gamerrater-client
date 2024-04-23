@@ -1,6 +1,11 @@
 import { useEffect, useState, React } from "react"
-import { createGame } from "../services/gameServices.jsx"
+import {
+  createGame,
+  getGameByGameId,
+  updateGame,
+} from "../services/gameServices.jsx"
 import { CategoryCheckbox } from "../categories/CategoryCheckbox.jsx"
+import { useNavigate, useParams } from "react-router-dom"
 
 export const GameForm = () => {
   //   const [categories, setCategories] = useState([])
@@ -15,6 +20,19 @@ export const GameForm = () => {
     imageUrl: "",
     categories: [],
   })
+  const { id } = useParams()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (id) {
+      getGameByGameId(id).then((game) => {
+        delete game.user
+        delete game.id
+        game.categories = game.categories.map((category) => category.id)
+        setFormData(game)
+      })
+    }
+  }, [id])
 
   useEffect(() => {}, [])
 
@@ -26,7 +44,16 @@ export const GameForm = () => {
   }
 
   const handleSubmit = () => {
-    createGame(formData)
+    // formData gets sent to the service
+    if (id) {
+      updateGame(id, formData).then(() => {
+        navigate(`/games/${id}`)
+      })
+    } else {
+      createGame(formData).then(() => {
+        navigate("/games")
+      })
+    }
   }
 
   return (
